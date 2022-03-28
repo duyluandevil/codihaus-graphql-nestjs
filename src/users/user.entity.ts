@@ -8,19 +8,21 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 export type UserDocument = Users & mongoose.Document;
 
-@Schema()
-@ObjectType()
+
+
+@Schema() //create Schema for MongoDB
+@ObjectType() //create objecttype for Schema Graphql 
 export class Users {
-  @Field(() => ID)
+  @Field(() => ID) // store in schema.gql, this's what return in schema.gql
   _id: number;
 
   @Prop({ required: true }) 
   @Field()
   name: string;
 
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Article.name }) 
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Article.name })  // create rela in database
   @Field(() => Article)
-  articleId: Article | string;
+  articleId: Article | string; // return object
 }
 
 export const UserSchema = SchemaFactory.createForClass(Users);
@@ -28,7 +30,7 @@ export const UserSchema = SchemaFactory.createForClass(Users);
 UserSchema.index({ articleId: 1 });
 
 @InputType()
-export class CreateUserInput {
+export class CreateUserInput { // get data input from client
 
   @Field()
   name: string;
@@ -38,10 +40,10 @@ export class CreateUserInput {
 }
 
 @InputType()
-export class UpdateUserInput {
+export class UpdateUserInput { // get data input from client
 
   @Field()
-  _id: string;
+  _id: string; //need id for find user to change infomation
 
   @Field()
   name: string;

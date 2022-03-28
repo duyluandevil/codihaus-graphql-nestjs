@@ -1,3 +1,4 @@
+/* eslint-disable prefer-const */
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ArticleService } from 'src/article/article.service';
